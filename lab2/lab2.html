@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+            <title>Lab 2 - Animated Shape</title>
+            <script type="text/javascript" src="Common/webgl-utils.js"></script>
+            <script type="text/javascript" src="Common/initShaders.js"></script>
+            <script type="text/javascript" src="Common/MV.js"></script>
+            <script type="text/javascript" src="lab2.js"></script>
+
+            <script type="x-shader/x-vertex" id="vertex-shader">
+                attribute vec4 myPosition;
+                uniform float theta;
+                uniform vec2 velocity;
+                void main() {
+                    gl_PointSize = 5.0;
+                    gl_Position.x = myPosition.x * cos(theta) + myPosition.y * sin(theta) + velocity.x;
+                    gl_Position.y = -myPosition.x * sin(theta) + myPosition.y *cos(theta) + velocity.y;
+                    gl_Position.z = 0.0;
+                    gl_Position.w = 1.0;
+                }
+                </script>
+
+            <script type="x-shader/x-fragment" id="fragment-shader">
+                void main() {
+                    gl_FragColor = vec4( 0.0, 1.0, .761, 1.0 );
+                }
+            </script>
+    </head>
+
+    <body onload="init()" onkeydown="moveShapeKeys(event)">
+        <canvas width="512" height="512" id="gl-canvas" onclick="moveShapeMouse(event)">
+        </canvas></br>
+        <button id="OnButton" onclick="startRotate()">StartRotate</button>
+        <button id="onButton" onclick="stopRotate()">StopRotate</button>
+        <button id="Increase" onclick="increaseSpeed()">Increase</button>
+        <button id="Decrease" onclick="decreaseSpeed()">Decrease</button>
+    </body>
+</html>
